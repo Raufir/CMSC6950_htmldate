@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 
 #reading the data input file
 data = pd.read_csv("top500Domains.csv")
+data =data.head(20)
 
 #appending 'https://' at the begining of URL's
 url_list = 'https://' + data['Root Domain']
