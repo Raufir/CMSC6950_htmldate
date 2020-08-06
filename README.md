@@ -3,7 +3,7 @@
 
 This project looks for publication date or upgradation date of most popular 500 websites on the internet.
 
-Run `./make` to redo the analysis and build the project report.
+Run `./Makefile` to redo the analysis and build the project report.
 
 software: https://github.com/adbar/htmldate
 
