@@ -20,4 +20,9 @@ https://moz.com/top-500/download/?table=top500Domains
 - numpy
 - csv
 
+Run the following commands one by one to install the htmldate package through python
 
+  - `pip install htmldate`
+	- `pip install --upgrade htmldate`
+	- `pip install git+https://github.com/adbar/htmldate.git`
+	- `pip install htmldate[all]`
