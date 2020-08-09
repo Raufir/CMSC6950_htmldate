@@ -24,70 +24,51 @@ philological standpoint and in the context of information technology.
  
 In this project, I have used this htmldate \footnote{https://github.com/adbar/htmldate} package to extract publication date for most popular 500 websites. Then I have written a python program which creates two histogram plots.
 
-\section{Methods}
+\section{Dataset}
 
-\subsection{Dataset}
 
-There are many ways to measure SST include from instruments deployed from boat, remote observations from satellites, and moored buoys.  In this report we will look at marine buoys are part of the Environment Canada Meteorological Service of Canada (MSC) buoy network.  This data is available for download from http://www.meds-sdmm.dfo-mpo.gc.ca/isdm-gdsi/waves-vagues/data-donnees/index-eng.asp as CSV files. The format of the CSV files is documented here http://www.meds-sdmm.dfo-mpo.gc.ca/isdm-gdsi/waves-vagues/formats-eng.html. In particular, depending on the model of the marine buoy, several data field are available as shown in Table. Measuring sea surface temperature is not straightforward since there are many definition of precisely where the temperature is being measured.  For this report, we will focus on \texttt{SSTP} as the variable of interest.
+I have collected the dataset from https://moz.com/top-500/download/?table=top500Domains which is a CSV file and saved as top500Domains.CSV. Upon opening the dataset, I have got to know that this dataset has following variable:
 
 \begin{table}[h]
 \begin{tabular}{|l|l|}
 \hline
 Variable & Description and units                                                      \\ \hline
-\texttt{WDIR }    & Direction from which the wind is blowing ($^\circ$ True)                          \\
-\texttt{WSPD}     & Horizontal wind speed (m/s)                                                \\
-\texttt{WSS\$}    & Horizontal scalar wind speed (m/s)                                         \\
-\texttt{GSPD}    & Gust wind speed (m/s)                                                      \\
-\texttt{ATMS}     & Atmospheric pressure at sea level (mbar)                                   \\
-\texttt{DRYT}     & Dry bulb temperature ($^\circ$ C)                                                  \\
-\texttt{SSTP}     & Sea surface temperature ($^\circ$ C)                                               \\
-\texttt{SLEV}     & Observed sea level                                                         \\
-\texttt{SST1}     & Average sea temperature from the non-synoptic part \\
-  & of WRIPS buoy data ($^\circ$ C) \\
-\texttt{HAT\$}    & Water temperature from high accuracy \\ & temperature sensor ($^\circ$ C)               \\ \hline
+\texttt{Rank}    & Rank of the website according to the DA ranking                          \\
+\texttt{Root Domain}     & Domain Name                                                \\
+\texttt{Linking Root Domains}    &  The number of other sites that link to that page        \\
+\texttt{Domain Authority}    & Search Engine Ranking                                                      \\
+              \\ \hline
 \end{tabular}
-\caption{Variables in marine buoy data}
-\label{tbl:datafields}
+\caption{Variables in Moz data}
+
 \end{table}
 
-Specifically we look at the data from Station 44255 - NE Burgeo Bank. This marine buoy is owned and maintained by Environment and Climate Change Canada. It is 6-meter NOMAD buoy located at 47.270 N 57.340 W.  There is data available for this buoy from 1998 until 2017.  
+My point of interest in the dataset was Domain Name column. The prefix "https://" was required to call the find\_date() function. Therefore, I have written a program named web\_publish\_date.py which takes the dataset as input, sanitizes it, finds publish date of the domain's and puts it's it into a new column in the dataframe.
 
-\subsection{Marine Heat Waves}
 
 To quantify whether SST for a particular area is indeed abnormally warm, we will use the Marine Heatwave (MHW) definition of Hobday et al. (manuscript submitted to Progress in Oceanography).  An algorithm for detecting a MHW has been implemented in the Python package `marineHeatWave`.
 
 \section{Results}
 
-As shown in Figure, the SST has a typical annual cycle between about $0^\circ$ C and $20^\circ$ C. There is some missing data between the years 2002 and 2004.  In 2005, 2006, and 2008 there is
-increased noise in the data suggesting that something is wrong with the data.  It would be strange for the SST to be considerably below zero.  More significantly, the data from early 2010 is very suspicious as it suggests that the temperature is getting close to $80^\circ$ C.  Clearly we need to clean this dataset before continuing to analyze it.
+I have visualized the publish date of domains in two plots. One of them is publish date vs year timeline another is publish date vs month timeline. The results were generated using matplotlib library of python.
 
 
-This dataset from the Marine Environmental Data Section (MEDS) of the Department of Fisheries and Oceans (DFO) has already gone a quality control (QC) process. The results of QC are given by a numerical code as describe in Table.
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{Plot1.png}
+\caption{Website publish/upgrade date in yearly timeline}
+\label{fig:plot1}
+\end{figure}
 
-\begin{table}[h]
-\begin{tabular}{|l|l|l|}
-\hline
-Code & Label & Description \\
-\hline
-0 & Blank & No quality control (QC) has been performed \\
-1 & Good & QC has been performed: record appears correct \\
-3 & Doubtful &  QC has been performed: record appears doubtful \\
-4 & Erroneous & QC has been performed: record appears erroneous \\
-5 & Changes & The record has been changed as a result of QC \\
-6 & Acceptable & QC has been performed: record seems \\  & & inconsistent with other records \\
-7 & Off Position & There is a problem with the buoy position or \\ & & mooring. Data may still be useful. \\
-\hline
-\end{tabular}
-\caption{Quality control flags used in the marine buoy dataset}
-\label{tbl:qc_codes}
-\end{table}
-
-
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{Plot2.png}
+\caption{Website publish/upgrade date in monthly timeline}
+\label{fig:plot2}
+\end{figure}
 
 
 
 \section{Conclusions}
-
+From the results we can observe that, most of the popular websites are published or updated in year 2020. On a different perspective we can see that, most of the websites are published or updated in January or August.
 
 % would be good to a a bibiography here too.
 
